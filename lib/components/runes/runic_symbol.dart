@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:glyph_o_matic/data/graphemes.dart';
 import 'package:glyph_o_matic/data/runes_definition.dart';
 
-import '../data/diacritics.dart';
-import 'grapheme_image.dart';
+import '../../data/diacritics.dart';
+import 'runic_grapheme.dart';
 
-class SingleRune extends StatelessWidget {
-  const SingleRune({super.key, required this.rune});
+class RunicSymbol extends StatelessWidget {
+  const RunicSymbol({super.key, required this.rune});
 
   final Rune rune;
 
@@ -14,9 +14,9 @@ class SingleRune extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GraphemeImage(assetString: getGraphemeAssetFromRune(rune)),
+        RunicGrapheme(assetString: getGraphemeAssetFromRune(rune)),
         if (rune.diacritic != Diacritic.none)
-        GraphemeImage(assetString: getDiacriticFromRune(rune)),
+          RunicGrapheme(assetString: getDiacriticFromRune(rune)),
       ],
     );
   }

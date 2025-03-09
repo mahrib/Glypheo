@@ -1,6 +1,7 @@
 import 'package:glyph_o_matic/data/runes_definition.dart';
 
 enum Grapheme {
+  none,
   a,
   e,
   i,

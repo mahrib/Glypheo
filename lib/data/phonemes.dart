@@ -1,4 +1,5 @@
 enum Phoneme {
+  none,
   ah,
   aah,
   ayy,

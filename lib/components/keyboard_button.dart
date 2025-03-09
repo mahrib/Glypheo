@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glyph_o_matic/components/single_rune.dart';
+import 'package:glyph_o_matic/components/runes/runic_symbol.dart';
 import 'package:glyph_o_matic/data/graphemes.dart';
 import 'package:glyph_o_matic/data/runes_definition.dart';
 
@@ -15,6 +15,6 @@ class KeyboardButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Rune rune = runeFromGraphemeAndDiacritic(grapheme, diacritic);
 
-    return SingleRune(rune: rune);
+    return RunicSymbol(rune: rune);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/diacritics.dart';
-import 'grapheme_image.dart';
+import 'runes/runic_grapheme.dart';
 
 class DiacriticButton extends StatelessWidget {
   const DiacriticButton({super.key, required this.diacritic});
@@ -10,6 +10,6 @@ class DiacriticButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GraphemeImage(assetString: getDiacriticAsset(diacritic));
+    return RunicGrapheme(assetString: getDiacriticAsset(diacritic));
   }
 }

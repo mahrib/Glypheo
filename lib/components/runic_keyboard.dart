@@ -19,6 +19,9 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        //vowels
+        const Text("vowels"),
+
         //vowel diacritics
         Row(
           children: [
@@ -27,8 +30,6 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
           ],
         ),
 
-        //vowels
-        const Text("vowels"),
         Row(
           children: [
             KeyboardButton(grapheme: Grapheme.a, diacritic: diacritic),
@@ -39,15 +40,16 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
           ],
         ),
 
-        //vowel diacritics
+        //voicable consonants
+        const Text("voicable consonants"),
+
+        //consonant diacritics
         Row(
           children: [
             DiacriticButton(diacritic: Diacritic.voiced),
           ],
         ),
 
-        //voicable consonants
-        const Text("voicable consonants"),
         Row(
           children: [
             KeyboardButton(grapheme: Grapheme.pb, diacritic: diacritic),
