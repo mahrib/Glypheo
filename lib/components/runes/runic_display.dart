@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glyph_o_matic/components/english_display.dart';
 import 'package:glyph_o_matic/components/runes/runic_word.dart';
 
 import '../../data/graphemes.dart';
@@ -26,6 +27,11 @@ List<RuneWord> combineWords(List<Rune> runes) {
   int wordEnd = 0;
 
   for (int i = 0; i < runes.length; i++) {
+    if (i == runes.length - 1) {
+      words.add(RuneWord(runes: runes.sublist(wordStart)));
+      break;
+    }
+
     if (runes[i].grapheme == Grapheme.none || i == runes.length - 1) {
       wordEnd = i;
       words.add(RuneWord(runes: runes.sublist(wordStart, wordEnd)));

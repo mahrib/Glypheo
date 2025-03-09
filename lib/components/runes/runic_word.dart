@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glyph_o_matic/components/english_display.dart';
 import 'package:glyph_o_matic/components/runes/runic_pair.dart';
 import 'package:glyph_o_matic/components/runes/runic_strikethrough.dart';
 import 'package:glyph_o_matic/data/runes_definition.dart';
@@ -12,17 +13,23 @@ class RunicWord extends StatelessWidget {
   Widget build(BuildContext context) {
     var combinedPairs = combinePairs(word);
 
-    return Stack(alignment: Alignment.center, children: [
-      RunicStrikethrough(),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal:20),
-        child: Row(
-          children: [
-            for (var pair in combinedPairs) RunicPair(runePair: pair),
-          ],
-        ),
-      ),
-    ]);
+    return Column(
+      children: [
+        Stack(alignment: Alignment.center, children: [
+          RunicStrikethrough(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:20),
+            child: Row(
+              children: [
+                for (var pair in combinedPairs) RunicPair(runePair: pair),
+              ],
+            ),
+          ),
+        ]),
+        SizedBox(height: 16),
+        EnglishDisplay(word: word)
+      ],
+    );
   }
 }
 

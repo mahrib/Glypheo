@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glyph_o_matic/components/english_display.dart';
 import 'package:glyph_o_matic/components/runes/runic_display.dart';
 import 'package:glyph_o_matic/components/runic_keyboard.dart';
 import 'package:glyph_o_matic/data/phonemes.dart';
@@ -33,7 +32,6 @@ class Translation extends StatelessWidget {
         children: [
           TranslationSwitcher(),
           RunicDisplay(runes: testRunes),
-          EnglishDisplay(runes: testRunes),
           RunicKeyboard(),
         ],
       )),
