@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../data/diacritics.dart';
 import '../data/graphemes.dart';
 import '../data/runes_definition.dart';
 
@@ -10,6 +11,14 @@ class SinglePhoneme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(rune.grapheme == Grapheme.none && rune.diacritic == Diacritic.none)
+      {
+        return Text("");
+      }
+    if(rune.grapheme == Grapheme.none)
+      {
+        return Text(rune.diacritic.name);
+      }
     return Text(getRuneName(rune));
   }
 }

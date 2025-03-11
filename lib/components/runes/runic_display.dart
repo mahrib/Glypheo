@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glyph_o_matic/components/english_display.dart';
 import 'package:glyph_o_matic/components/runes/runic_word.dart';
 
 import '../../data/graphemes.dart';

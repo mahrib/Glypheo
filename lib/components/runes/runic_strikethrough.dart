@@ -7,11 +7,11 @@ class RunicStrikethrough extends StatelessWidget {
   Widget build(BuildContext context) {
     final assetString = "assets/graphemes/punctuation/line.png";
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 5),
-      child: Image.asset(
-        assetString,
-      ),
+    return Image.asset(
+      assetString,
+      centerSlice: Rect.fromLTRB(30, 0, 30, 0),
+      width: 200,
+      height: 1,
     );
   }
 }

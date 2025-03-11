@@ -281,11 +281,12 @@ List<Rune> runes = [
 ];
 
 Rune runeFromGraphemeAndDiacritic(Grapheme grapheme, Diacritic diacritic) {
-  return runes.singleWhere((element) =>
-      element.grapheme == grapheme && element.diacritic == diacritic);
+  return runes.singleWhere(
+      (element) =>
+          element.grapheme == grapheme && element.diacritic == diacritic,
+      orElse: () => runeFromPhoneme(Phoneme.none));
 }
 
 Rune runeFromPhoneme(Phoneme phoneme) {
   return runes.singleWhere((element) => element.sound == phoneme);
 }
-

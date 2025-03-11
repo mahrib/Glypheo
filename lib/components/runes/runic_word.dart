@@ -16,7 +16,7 @@ class RunicWord extends StatelessWidget {
     return Column(
       children: [
         Stack(alignment: Alignment.center, children: [
-          RunicStrikethrough(),
+          Positioned.fill(child: RunicStrikethrough()),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal:20),
             child: Row(

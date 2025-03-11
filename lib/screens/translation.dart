@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:glyph_o_matic/components/clear_button.dart';
 import 'package:glyph_o_matic/components/runes/runic_display.dart';
 import 'package:glyph_o_matic/components/runic_keyboard.dart';
 import 'package:glyph_o_matic/data/phonemes.dart';
 
-import '../components/translation_switcher.dart';
 import '../data/runes_definition.dart';
 
-class Translation extends StatelessWidget {
+class Translation extends StatefulWidget {
   const Translation({super.key});
+
+  @override
+  State<Translation> createState() => _TranslationState();
+}
+
+class _TranslationState extends State<Translation> {
+  List<Rune> runes = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +37,19 @@ class Translation extends StatelessWidget {
       body: SafeArea(
           child: Column(
         children: [
-          TranslationSwitcher(),
-          RunicDisplay(runes: testRunes),
-          RunicKeyboard(),
+          SizedBox(height: 64),
+          RunicDisplay(runes: runes),
+          ClearButton(onPressed: () => setState(() => runes.clear())),
+          SizedBox(height: 64),
+          RunicKeyboard(onRunePressed: (rune) => addRune(rune)),
         ],
       )),
     );
+  }
+
+  void addRune(Rune rune) {
+    setState(() {
+      runes.add(rune);
+    });
   }
 }
