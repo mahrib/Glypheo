@@ -14,6 +14,7 @@ class RunicDisplay extends StatelessWidget {
     var words = combineWords(runes);
 
     return Container(
+      height: 150,
       color: Colors.blueGrey,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -34,13 +35,17 @@ List<RuneWord> combineWords(List<Rune> runes) {
 
   for (int i = 0; i < runes.length; i++) {
     if (i == runes.length - 1) {
-      words.add(RuneWord(runes: runes.sublist(wordStart)));
+      var word = RuneWord(runes: runes.sublist(wordStart));
+      word.trimWord();
+      words.add(word);
       break;
     }
 
     if (runes[i].grapheme == Grapheme.none || i == runes.length - 1) {
       wordEnd = i;
-      words.add(RuneWord(runes: runes.sublist(wordStart, wordEnd)));
+      var word = RuneWord(runes: runes.sublist(wordStart, wordEnd));
+      word.trimWord();
+      words.add(word);
 
       wordStart = i + 1;
     }

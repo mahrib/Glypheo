@@ -24,10 +24,16 @@ class KeyboardButton extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(12),
-      child: FloatingActionButton(
-        backgroundColor: color,
-        onPressed: () => onPressed(data),
-        child: child,
+      child: SizedBox(
+        width: 70,
+        height: 100,
+        child: InkResponse(
+          onTap: () => onPressed(data),
+          child: Card(
+            color: color,
+            child: child,
+          ),
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/diacritics.dart';
 import '../runes/runic_grapheme.dart';
+import '../single_phoneme.dart';
 
 class ButtonContentDiacritic extends StatelessWidget {
   const ButtonContentDiacritic({
@@ -16,7 +17,7 @@ class ButtonContentDiacritic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.center,
+      alignment: Alignment.bottomCenter,
       children: [
         Container(
           width: 5,
@@ -27,6 +28,10 @@ class ButtonContentDiacritic extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: RunicGrapheme(assetString: getDiacriticAsset(diacritic)),
         ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 25),
+          child: SinglePhoneme(buttonString: diacritic.name),
+        )
       ],
     );
   }

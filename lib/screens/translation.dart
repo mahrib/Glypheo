@@ -3,6 +3,7 @@ import 'package:glyph_o_matic/components/runes/runic_display.dart';
 import 'package:glyph_o_matic/components/runic_keyboard.dart';
 import 'package:glyph_o_matic/data/phonemes.dart';
 
+import '../data/graphemes.dart';
 import '../data/runes_definition.dart';
 
 class Translation extends StatefulWidget {
@@ -20,7 +21,7 @@ class _TranslationState extends State<Translation> {
     return Scaffold(
       body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: 64),
           RunicDisplay(runes: runes),
@@ -43,6 +44,9 @@ class _TranslationState extends State<Translation> {
   }
 
   void space() {
+    if (runes.last.grapheme == Grapheme.none) {
+      return;
+    }
     setState(() {
       runes.add(runeFromPhoneme(Phoneme.none));
     });

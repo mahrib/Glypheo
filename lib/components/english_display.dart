@@ -10,7 +10,7 @@ class EnglishDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [for (var rune in word.runes) SinglePhoneme(rune: rune)],
+      children: [for (var rune in word.runes) SinglePhoneme(buttonString: rune.sound.name)],
     );
   }
 }

@@ -29,6 +29,14 @@ class RuneWord {
   final List<Rune> runes;
 
   RuneWord({required this.runes});
+
+  void trimWord()
+  {
+    if(runes.last.grapheme == Grapheme.none)
+      {
+        runes.removeLast();
+      }
+  }
 }
 
 List<Rune> runes = [
