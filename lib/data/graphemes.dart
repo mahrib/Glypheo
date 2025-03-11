@@ -53,3 +53,15 @@ bool getIsVoicable(Grapheme grapheme) {
       grapheme == Grapheme.shzh ||
       grapheme == Grapheme.chj;
 }
+
+List<Grapheme> getVowelGraphemes() {
+  return [Grapheme.a, Grapheme.e, Grapheme.i, Grapheme.o, Grapheme.u];
+}
+
+List<Grapheme> getVoicableConsonantGraphemes() {
+  return [Grapheme.pb, Grapheme.td, Grapheme.fv, Grapheme.sz, Grapheme.th, Grapheme.ckg, Grapheme.shzh, Grapheme.chj];
+}
+
+List<Grapheme> getSingleConsonantGraphemes() {
+  return [Grapheme.m, Grapheme.n, Grapheme.l, Grapheme.r, Grapheme.w, Grapheme.h, Grapheme.y, Grapheme.ng];
+}

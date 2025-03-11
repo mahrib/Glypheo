@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:glyph_o_matic/components/keyboard_button.dart';
+import 'package:glyph_o_matic/components/buttons/button_content_diacritic.dart';
+import 'package:glyph_o_matic/components/buttons/button_content_rune.dart';
+import 'package:glyph_o_matic/components/buttons/button_content_icon.dart';
+import 'package:glyph_o_matic/components/buttons/keyboard_button.dart';
 import 'package:glyph_o_matic/data/diacritics.dart';
 import 'package:glyph_o_matic/data/graphemes.dart';
 
-import '../data/phonemes.dart';
 import '../data/runes_definition.dart';
 
 class RunicKeyboard extends StatefulWidget {
-  const RunicKeyboard({super.key, required this.onRunePressed});
+  const RunicKeyboard({
+    super.key,
+    required this.onRunePressed,
+    required this.onSpacePressed,
+    required this.onBackspacePressed,
+    required this.onClearPressed,
+  });
 
   final Function(Rune) onRunePressed;
+  final Function() onSpacePressed;
+  final Function() onBackspacePressed;
+  final Function() onClearPressed;
 
   @override
   State<RunicKeyboard> createState() => _RunicKeyboardState();
@@ -23,6 +34,20 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
+        //backspace
+        KeyboardButton(
+          onPressed: (d) => widget.onBackspacePressed(),
+          child: ButtonContentIcon(buttonIcon: Icons.backspace),
+        ),
+
+        //clear
+        KeyboardButton(
+          onPressed: (d) => widget.onClearPressed(),
+          child: ButtonContentIcon(buttonIcon: Icons.clear),
+        ),
+
+
         //vowels
         const Text("vowels"),
 
@@ -30,38 +55,28 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
         Row(
           children: [
             KeyboardButton(
-                grapheme: Grapheme.none,
-                diacritic: Diacritic.long,
-                onPressed: (g, d) => onDiacriticPressed(d)),
+              data: Diacritic.long,
+              onPressed: (d) => onDiacriticPressed(d),
+              child: ButtonContentDiacritic(diacritic: Diacritic.long),
+            ),
             KeyboardButton(
-                grapheme: Grapheme.none,
-                diacritic: Diacritic.upper,
-                onPressed: (g, d) => onDiacriticPressed(d)),
+              data: Diacritic.upper,
+              onPressed: (d) => onDiacriticPressed(d),
+              child: ButtonContentDiacritic(diacritic: Diacritic.upper),
+            ),
           ],
         ),
 
         Row(
           children: [
-            KeyboardButton(
-                grapheme: Grapheme.a,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.e,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.i,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.o,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.u,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d))
+            for (var vowel in getVowelGraphemes())
+              KeyboardButton(
+                data: runeFromGraphemeAndDiacritic(vowel, _diacritic),
+                onPressed: (d) => widget.onRunePressed(d),
+                child: ButtonContentRune(
+                  rune: runeFromGraphemeAndDiacritic(vowel, _diacritic),
+                ),
+              ),
           ],
         ),
 
@@ -72,46 +87,23 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
         Row(
           children: [
             KeyboardButton(
-                grapheme: Grapheme.none,
-                diacritic: Diacritic.voiced,
-                onPressed: (g, d) => onDiacriticPressed(d)),
+              data: Diacritic.voiced,
+              onPressed: (d) => onDiacriticPressed(d),
+              child: ButtonContentDiacritic(diacritic: Diacritic.voiced),
+            ),
           ],
         ),
 
         Row(
           children: [
-            KeyboardButton(
-                grapheme: Grapheme.pb,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.td,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.fv,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.sz,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.th,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.ckg,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.shzh,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.chj,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
+            for (var voicable in getVoicableConsonantGraphemes())
+              KeyboardButton(
+                data: runeFromGraphemeAndDiacritic(voicable, _diacritic),
+                onPressed: (d) => widget.onRunePressed(d),
+                child: ButtonContentRune(
+                  rune: runeFromGraphemeAndDiacritic(voicable, _diacritic),
+                ),
+              ),
           ],
         ),
 
@@ -119,57 +111,24 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
         const Text("single consonants"),
         Row(
           children: [
-            KeyboardButton(
-                grapheme: Grapheme.m,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.n,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.l,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.r,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.w,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.h,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.y,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
-            KeyboardButton(
-                grapheme: Grapheme.ng,
-                diacritic: _diacritic,
-                onPressed: (g, d) => onRunePressed(g, d)),
+            for (var single in getSingleConsonantGraphemes())
+              KeyboardButton(
+                data: runeFromGraphemeAndDiacritic(single, _diacritic),
+                onPressed: (d) => widget.onRunePressed(d),
+                child: ButtonContentRune(
+                  rune: runeFromGraphemeAndDiacritic(single, _diacritic),
+                ),
+              ),
           ],
         ),
 
+        //space
         KeyboardButton(
-            grapheme: Grapheme.none,
-            diacritic: Diacritic.none,
-            onPressed: (g, d) => onRunePressed(g, d)),
+          onPressed: (d) => widget.onSpacePressed(),
+          child: ButtonContentIcon(buttonIcon: Icons.space_bar),
+        ),
       ],
     );
-  }
-
-  void onRunePressed(Grapheme grapheme, Diacritic diacritic) {
-    var rune = runeFromGraphemeAndDiacritic(grapheme, diacritic);
-    widget.onRunePressed(rune);
-  }
-
-  void onSpacePressed()
-  {
-    widget.onRunePressed(runeFromPhoneme(Phoneme.none));
   }
 
   void onDiacriticPressed(Diacritic diacritic) {

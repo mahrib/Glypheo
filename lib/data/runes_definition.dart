@@ -172,12 +172,12 @@ List<Rune> runes = [
       bIsVowel: false,
       grapheme: Grapheme.th,
       diacritic: Diacritic.none,
-      sound: Phoneme.th),
+      sound: Phoneme.thh),
   Rune(
       bIsVowel: false,
       grapheme: Grapheme.th,
       diacritic: Diacritic.voiced,
-      sound: Phoneme.thv),
+      sound: Phoneme.th),
 
   //ckg
   Rune(
@@ -281,12 +281,11 @@ List<Rune> runes = [
 ];
 
 Rune runeFromGraphemeAndDiacritic(Grapheme grapheme, Diacritic diacritic) {
-  return runes.singleWhere(
-      (element) =>
-          element.grapheme == grapheme && element.diacritic == diacritic,
-      orElse: () => runeFromPhoneme(Phoneme.none));
+  return runes.singleWhere((element) => element.grapheme == grapheme && element.diacritic == diacritic,
+      orElse: () => runes.singleWhere((element) => element.grapheme == grapheme && element.diacritic == Diacritic.none));
 }
 
 Rune runeFromPhoneme(Phoneme phoneme) {
   return runes.singleWhere((element) => element.sound == phoneme);
 }
+
