@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glyph_o_matic/components/single_phoneme.dart';
 
 import '../../data/runes_definition.dart';
 import '../runes/runic_symbol.dart';

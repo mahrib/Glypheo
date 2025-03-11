@@ -13,8 +13,15 @@ class RunicDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     var words = combineWords(runes);
 
-    return Row(
-      children: [for (var word in words) RunicWord(word: word)],
+    return Container(
+      color: Colors.blueGrey,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [for (var word in words) RunicWord(word: word)],
+        ),
+      ),
     );
   }
 }

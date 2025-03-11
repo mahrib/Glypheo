@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:glyph_o_matic/components/buttons/button_content_diacritic.dart';
 import 'package:glyph_o_matic/components/buttons/button_content_rune.dart';
-import 'package:glyph_o_matic/components/buttons/button_content_icon.dart';
 import 'package:glyph_o_matic/components/buttons/keyboard_button.dart';
 import 'package:glyph_o_matic/data/diacritics.dart';
-import 'package:glyph_o_matic/data/graphemes.dart';
 
+import '../data/graphemes.dart';
+import '../data/keyboard_definition.dart';
 import '../data/runes_definition.dart';
+import 'buttons/button_content_diacritic.dart';
+import 'buttons/button_content_icon.dart';
 
 class RunicKeyboard extends StatefulWidget {
   const RunicKeyboard({
@@ -32,103 +33,78 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-
-        //backspace
-        KeyboardButton(
-          onPressed: (d) => widget.onBackspacePressed(),
-          child: ButtonContentIcon(buttonIcon: Icons.backspace),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 40),
+            for (var button in getTopRow()) constructKeyboardButton(button)
+          ],
         ),
-
-        //clear
-        KeyboardButton(
-          onPressed: (d) => widget.onClearPressed(),
-          child: ButtonContentIcon(buttonIcon: Icons.clear),
-        ),
-
-
-        //vowels
-        const Text("vowels"),
-
-        //vowel diacritics
         Row(
           children: [
-            KeyboardButton(
-              data: Diacritic.long,
-              onPressed: (d) => onDiacriticPressed(d),
-              child: ButtonContentDiacritic(diacritic: Diacritic.long),
+            for (var button in getMiddleRow()) constructKeyboardButton(button)
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(width: 40),
+            for (var button in getBottomRow()) constructKeyboardButton(button)
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: KeyboardButton(
+                  onPressed: (d) => widget.onSpacePressed(),
+                  type: KeyboardButtonType.space,
+                  child: ButtonContentIcon(buttonIcon: Icons.space_bar)),
             ),
             KeyboardButton(
-              data: Diacritic.upper,
-              onPressed: (d) => onDiacriticPressed(d),
-              child: ButtonContentDiacritic(diacritic: Diacritic.upper),
-            ),
+                onPressed: (d) => widget.onBackspacePressed(),
+                type: KeyboardButtonType.backspace,
+                child: ButtonContentIcon(buttonIcon: Icons.backspace)),
+            SizedBox(width: 40),
+
           ],
-        ),
-
-        Row(
-          children: [
-            for (var vowel in getVowelGraphemes())
-              KeyboardButton(
-                data: runeFromGraphemeAndDiacritic(vowel, _diacritic),
-                onPressed: (d) => widget.onRunePressed(d),
-                child: ButtonContentRune(
-                  rune: runeFromGraphemeAndDiacritic(vowel, _diacritic),
-                ),
-              ),
-          ],
-        ),
-
-        //voicable consonants
-        const Text("voicable consonants"),
-
-        //consonant diacritics
-        Row(
-          children: [
-            KeyboardButton(
-              data: Diacritic.voiced,
-              onPressed: (d) => onDiacriticPressed(d),
-              child: ButtonContentDiacritic(diacritic: Diacritic.voiced),
-            ),
-          ],
-        ),
-
-        Row(
-          children: [
-            for (var voicable in getVoicableConsonantGraphemes())
-              KeyboardButton(
-                data: runeFromGraphemeAndDiacritic(voicable, _diacritic),
-                onPressed: (d) => widget.onRunePressed(d),
-                child: ButtonContentRune(
-                  rune: runeFromGraphemeAndDiacritic(voicable, _diacritic),
-                ),
-              ),
-          ],
-        ),
-
-        //voicable consonants
-        const Text("single consonants"),
-        Row(
-          children: [
-            for (var single in getSingleConsonantGraphemes())
-              KeyboardButton(
-                data: runeFromGraphemeAndDiacritic(single, _diacritic),
-                onPressed: (d) => widget.onRunePressed(d),
-                child: ButtonContentRune(
-                  rune: runeFromGraphemeAndDiacritic(single, _diacritic),
-                ),
-              ),
-          ],
-        ),
-
-        //space
-        KeyboardButton(
-          onPressed: (d) => widget.onSpacePressed(),
-          child: ButtonContentIcon(buttonIcon: Icons.space_bar),
         ),
       ],
     );
+  }
+
+  Widget constructKeyboardButton(KeyboardButtonDef button) {
+    switch (button.type) {
+      case KeyboardButtonType.vRune:
+      case KeyboardButtonType.csRune:
+      case KeyboardButtonType.cvRune:
+        var grapheme = button.data as Grapheme;
+        return KeyboardButton(
+            data: runeFromGraphemeAndDiacritic(grapheme, _diacritic),
+            onPressed: (d) => widget.onRunePressed(d),
+            type: button.type,
+            child: ButtonContentRune(
+              rune: runeFromGraphemeAndDiacritic(grapheme, _diacritic),
+            ));
+
+      case KeyboardButtonType.vDiacritic:
+      case KeyboardButtonType.cDiacritic:
+        var diacritic = button.data as Diacritic;
+        return KeyboardButton(
+            data: diacritic,
+            onPressed: (d) => onDiacriticPressed(d),
+            type: button.type,
+            child: ButtonContentDiacritic(
+              diacritic: diacritic,
+              isActive: _diacritic == diacritic,
+            ));
+
+      case KeyboardButtonType.space:
+      case KeyboardButtonType.backspace:
+        return Placeholder();
+
+    }
+    throw Exception("Invalid button type");
   }
 
   void onDiacriticPressed(Diacritic diacritic) {

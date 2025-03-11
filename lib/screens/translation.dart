@@ -20,6 +20,7 @@ class _TranslationState extends State<Translation> {
     return Scaffold(
       body: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: 64),
           RunicDisplay(runes: runes),
