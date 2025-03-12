@@ -102,9 +102,7 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
       case KeyboardButtonType.space:
       case KeyboardButtonType.backspace:
         return Placeholder();
-
     }
-    throw Exception("Invalid button type");
   }
 
   void onDiacriticPressed(Diacritic diacritic) {
