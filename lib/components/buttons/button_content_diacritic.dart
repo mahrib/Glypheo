@@ -20,8 +20,8 @@ class ButtonContentDiacritic extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          width: 5,
-          height: 5,
+          width: 20,
+          height: 3,
           color: isActive ? Colors.black : Colors.transparent,
         ),
         Padding(
