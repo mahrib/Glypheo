@@ -12,14 +12,17 @@ class ButtonContentRune extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 30),
-          child: RunicSymbol(rune: rune),
+        Positioned(
+          left: 4,
+          right: 4,
+          top: 10,
+          bottom: 25,
+          child: Center(child: RunicSymbol(rune: rune)),
         ),
-        Padding(
-          padding: const EdgeInsets.all(4),
+        Positioned(
+          bottom: 4,
           child: SinglePhoneme(buttonString: rune.sound.name),
         )
       ],

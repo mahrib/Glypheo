@@ -26,6 +26,7 @@ class RunicWord extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 for (var pair in combinedPairs) RunicPair(runePair: pair),
               ],

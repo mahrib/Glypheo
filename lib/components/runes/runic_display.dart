@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glyph_o_matic/components/runes/runic_word.dart';
 
+import '../../config/ui_config.dart';
 import '../../data/graphemes.dart';
 import '../../data/runes_definition.dart';
 
@@ -15,12 +16,18 @@ class RunicDisplay extends StatelessWidget {
 
     return Container(
       height: 150,
-      color: Colors.blueGrey,
+      color: kDisplayBG,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [for (var word in words) RunicWord(word: word)],
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+
+          child: Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            runAlignment: WrapAlignment.center,
+            alignment: WrapAlignment.center,
+            children: [for (var word in words) RunicWord(word: word)],
+          ),
         ),
       ),
     );

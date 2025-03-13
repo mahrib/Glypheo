@@ -17,21 +17,18 @@ class ButtonContentDiacritic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.center,
       children: [
-        Container(
-          width: 20,
-          height: 3,
-          color: isActive ? Colors.black : Colors.transparent,
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: 20,
+            height: 3,
+            color: isActive ? Colors.black : Colors.transparent,
+          ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RunicGrapheme(assetString: getDiacriticAsset(diacritic)),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 25),
-          child: SinglePhoneme(buttonString: diacritic.name),
-        )
+        RunicGrapheme(assetString: getDiacriticAsset(diacritic), iconScale: 4),
+        SinglePhoneme(buttonString: diacritic.name)
       ],
     );
   }

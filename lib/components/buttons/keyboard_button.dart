@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../config/ui_config.dart';
 import '../../data/keyboard_definition.dart';
-import '../../ui_config.dart';
 
 class KeyboardButton extends StatelessWidget {
   const KeyboardButton({
@@ -23,15 +23,30 @@ class KeyboardButton extends StatelessWidget {
     Color color = getButtonColor(type);
 
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(kButtonPadding),
       child: SizedBox(
         width: 70,
         height: 100,
         child: InkResponse(
           onTap: () => onPressed(data),
-          child: Card(
-            color: color,
-            child: child,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.5),
+                  spreadRadius: 0,
+                  blurRadius: 5,
+                ),
+              ],            ),
+            child: Card(
+              margin: EdgeInsets.all(3),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(17),
+              ),
+              color: color,
+              child: child,
+            ),
           ),
         ),
       ),

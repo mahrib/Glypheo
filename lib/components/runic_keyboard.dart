@@ -32,44 +32,49 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 40),
-            for (var button in getTopRow()) constructKeyboardButton(button)
-          ],
-        ),
-        Row(
-          children: [
-            for (var button in getMiddleRow()) constructKeyboardButton(button)
-          ],
-        ),
-        Row(
-          children: [
-            SizedBox(width: 40),
-            for (var button in getBottomRow()) constructKeyboardButton(button)
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: KeyboardButton(
-                  onPressed: (d) => widget.onSpacePressed(),
-                  type: KeyboardButtonType.space,
-                  child: ButtonContentIcon(buttonIcon: Icons.space_bar)),
-            ),
-            KeyboardButton(
-                onPressed: (d) => widget.onBackspacePressed(),
-                type: KeyboardButtonType.backspace,
-                child: ButtonContentIcon(buttonIcon: Icons.backspace)),
-            SizedBox(width: 40),
-
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4, top: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(width: 40),
+              for (var button in getTopRow()) Expanded(child: constructKeyboardButton(button))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              for (var button in getMiddleRow()) Expanded(child: constructKeyboardButton(button)),
+              SizedBox(width: 40),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(width: 40),
+              for (var button in getBottomRow()) Expanded(child: constructKeyboardButton(button))
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: KeyboardButton(
+                    onPressed: (d) => widget.onSpacePressed(),
+                    type: KeyboardButtonType.space,
+                    child: ButtonContentIcon(buttonIcon: Icons.space_bar)),
+              ),
+              KeyboardButton(
+                  onPressed: (d) => widget.onBackspacePressed(),
+                  type: KeyboardButtonType.backspace,
+                  child: ButtonContentIcon(buttonIcon: Icons.backspace)),
+              SizedBox(width: 40),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

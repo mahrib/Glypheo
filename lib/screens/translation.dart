@@ -3,6 +3,7 @@ import 'package:glyph_o_matic/components/runes/runic_display.dart';
 import 'package:glyph_o_matic/components/runic_keyboard.dart';
 import 'package:glyph_o_matic/data/phonemes.dart';
 
+import '../config/ui_config.dart';
 import '../data/graphemes.dart';
 import '../data/runes_definition.dart';
 
@@ -19,13 +20,12 @@ class _TranslationState extends State<Translation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kLightKeyboardBG,
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 64),
-          RunicDisplay(runes: runes),
-          SizedBox(height: 64),
+          Expanded(child: RunicDisplay(runes: runes)),
           RunicKeyboard(
             onRunePressed: (rune) => addRune(rune),
             onSpacePressed: () => space(),
@@ -53,6 +53,9 @@ class _TranslationState extends State<Translation> {
   }
 
   void backspace() {
+    if (runes.isEmpty) {
+      return;
+    }
     setState(() {
       runes.removeLast();
     });
