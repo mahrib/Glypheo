@@ -39,7 +39,7 @@ List<KeyboardButtonDef> bottomRow = [
   KeyboardButtonDef(type: KeyboardButtonType.vRune, data: Grapheme.u),
   KeyboardButtonDef(type: KeyboardButtonType.csRune, data: Grapheme.h),
   KeyboardButtonDef(type: KeyboardButtonType.csRune, data: Grapheme.y),
-  KeyboardButtonDef(type: KeyboardButtonType.cvRune, data: Grapheme.ng),
+  KeyboardButtonDef(type: KeyboardButtonType.csRune, data: Grapheme.ng),
   KeyboardButtonDef(type: KeyboardButtonType.cvRune, data: Grapheme.shzh),
   KeyboardButtonDef(type: KeyboardButtonType.cvRune, data: Grapheme.chj),
   KeyboardButtonDef(type: KeyboardButtonType.cDiacritic, data: Diacritic.voiced),
