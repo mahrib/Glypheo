@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'diacritics.dart';
 import 'graphemes.dart';
 
-enum KeyboardButtonType { vRune, csRune, cvRune, vDiacritic, cDiacritic, space, backspace }
+enum KeyboardButtonType { vRune, csRune, cvRune, vDiacritic, cDiacritic, space, backspace, other }
 
 class KeyboardButtonDef {
   final KeyboardButtonType type;

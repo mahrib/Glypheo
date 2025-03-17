@@ -5,26 +5,28 @@ import '../../data/runes_definition.dart';
 import '../runes/runic_symbol.dart';
 
 class ButtonContentRune extends StatelessWidget {
-  const ButtonContentRune({super.key, required this.rune});
+  const ButtonContentRune({
+    super.key,
+    required this.rune,
+    required this.showEnglish,
+  });
 
   final Rune rune;
+  final bool showEnglish;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
+    return Column(
       children: [
-        Positioned(
-          left: 4,
-          right: 4,
-          top: 10,
-          bottom: 25,
-          child: Center(child: RunicSymbol(rune: rune)),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Center(child: RunicSymbol(rune: rune)),
+          ),
         ),
-        Positioned(
-          bottom: 4,
-          child: SinglePhoneme(buttonString: rune.sound.name),
-        )
+        if(showEnglish)
+        SinglePhoneme(buttonString: rune.sound.name),
+        SizedBox(height: 8)
       ],
     );
   }

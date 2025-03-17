@@ -9,27 +9,34 @@ class ButtonContentDiacritic extends StatelessWidget {
     super.key,
     required this.diacritic,
     required this.isActive,
+    required this.showEnglish,
   });
 
   final Diacritic diacritic;
   final bool isActive;
+  final bool showEnglish;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: 20,
-            height: 3,
-            color: isActive ? Colors.black : Colors.transparent,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: 20,
+              height: 3,
+              color: isActive ? Color(0xFF1689a7) : Colors.transparent,
+            ),
           ),
-        ),
-        RunicGrapheme(assetString: getDiacriticAsset(diacritic), iconScale: 4),
-        SinglePhoneme(buttonString: diacritic.name)
-      ],
+          RunicGrapheme(
+              assetString: getDiacriticAsset(diacritic), iconScale: 4),
+          if(showEnglish)
+          SinglePhoneme(buttonString: diacritic.name)
+        ],
+      ),
     );
   }
 }

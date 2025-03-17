@@ -16,12 +16,15 @@ class RunicKeyboard extends StatefulWidget {
     required this.onSpacePressed,
     required this.onBackspacePressed,
     required this.onClearPressed,
+    required this.showEnglish,
   });
 
   final Function(Rune) onRunePressed;
   final Function() onSpacePressed;
   final Function() onBackspacePressed;
   final Function() onClearPressed;
+
+  final bool showEnglish;
 
   @override
   State<RunicKeyboard> createState() => _RunicKeyboardState();
@@ -32,48 +35,65 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4, top: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 1000),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4, top: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(width: 40),
-              for (var button in getTopRow()) Expanded(child: constructKeyboardButton(button))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              for (var button in getMiddleRow()) Expanded(child: constructKeyboardButton(button)),
-              SizedBox(width: 40),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(width: 40),
-              for (var button in getBottomRow()) Expanded(child: constructKeyboardButton(button))
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: KeyboardButton(
-                    onPressed: (d) => widget.onSpacePressed(),
-                    type: KeyboardButtonType.space,
-                    child: ButtonContentIcon(buttonIcon: Icons.space_bar)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(width: 40),
+                  for (var button in getTopRow())
+                    Expanded(child: constructKeyboardButton(button))
+                ],
               ),
-              KeyboardButton(
-                  onPressed: (d) => widget.onBackspacePressed(),
-                  type: KeyboardButtonType.backspace,
-                  child: ButtonContentIcon(buttonIcon: Icons.backspace)),
-              SizedBox(width: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var button in getMiddleRow())
+                    Expanded(child: constructKeyboardButton(button)),
+                  SizedBox(width: 40),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(width: 40),
+                  for (var button in getBottomRow())
+                    Expanded(child: constructKeyboardButton(button))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: KeyboardButton(
+                        onPressed: (d) => widget.onSpacePressed(),
+                        type: KeyboardButtonType.space,
+                        child: ButtonContentIcon(buttonIcon: Icons.space_bar)),
+                  ),
+                  SizedBox(
+                    width: 120,
+                    child: KeyboardButton(
+                        onPressed: (d) => widget.onBackspacePressed(),
+                        type: KeyboardButtonType.backspace,
+                        child: ButtonContentIcon(buttonIcon: Icons.backspace)),
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -90,6 +110,7 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
             type: button.type,
             child: ButtonContentRune(
               rune: runeFromGraphemeAndDiacritic(grapheme, _diacritic),
+              showEnglish: widget.showEnglish,
             ));
 
       case KeyboardButtonType.vDiacritic:
@@ -102,11 +123,14 @@ class _RunicKeyboardState extends State<RunicKeyboard> {
             child: ButtonContentDiacritic(
               diacritic: diacritic,
               isActive: _diacritic == diacritic,
+              showEnglish: widget.showEnglish,
             ));
 
       case KeyboardButtonType.space:
       case KeyboardButtonType.backspace:
         return Placeholder();
+      case KeyboardButtonType.other:
+        throw UnimplementedError();
     }
   }
 

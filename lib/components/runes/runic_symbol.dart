@@ -14,9 +14,10 @@ class RunicSymbol extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        RunicGrapheme(assetString: getGraphemeAssetFromRune(rune), iconScale: 3,),
+        RunicGrapheme(
+            assetString: getGraphemeAssetFromRune(rune), iconScale: 3),
         if (rune.diacritic != Diacritic.none)
-          RunicGrapheme(assetString: getDiacriticFromRune(rune), iconScale: 3,),
+          RunicGrapheme(assetString: getDiacriticFromRune(rune), iconScale: 3),
       ],
     );
   }

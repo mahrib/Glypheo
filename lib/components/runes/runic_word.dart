@@ -5,9 +5,14 @@ import 'package:glyph_o_matic/components/runes/runic_strikethrough.dart';
 import 'package:glyph_o_matic/data/runes_definition.dart';
 
 class RunicWord extends StatelessWidget {
-  const RunicWord({super.key, required this.word});
+  const RunicWord({
+    super.key,
+    required this.word,
+    required this.showEnglish,
+  });
 
   final RuneWord word;
+  final bool showEnglish;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,7 @@ class RunicWord extends StatelessWidget {
           ),
         ]),
         SizedBox(height: 16),
+        if(showEnglish)
         EnglishDisplay(word: word)
       ],
     );

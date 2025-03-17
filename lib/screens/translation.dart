@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glyph_o_matic/components/runes/runic_display.dart';
 import 'package:glyph_o_matic/components/runic_keyboard.dart';
+import 'package:glyph_o_matic/components/settings.dart';
 import 'package:glyph_o_matic/data/phonemes.dart';
 
 import '../config/ui_config.dart';
@@ -16,17 +17,20 @@ class Translation extends StatefulWidget {
 
 class _TranslationState extends State<Translation> {
   List<Rune> runes = [];
+  bool showEnglish = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kLightKeyboardBG,
+      backgroundColor: kDarkBG,
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(child: RunicDisplay(runes: runes)),
+          RunicDisplay(runes: runes, showEnglish: showEnglish),
+          Settings(onEnglishToggled: () => toggleEnglish()),
           RunicKeyboard(
+            showEnglish: showEnglish,
             onRunePressed: (rune) => addRune(rune),
             onSpacePressed: () => space(),
             onBackspacePressed: () => backspace(),
@@ -64,6 +68,12 @@ class _TranslationState extends State<Translation> {
   void clearRunes() {
     setState(() {
       runes.clear();
+    });
+  }
+
+  void toggleEnglish() {
+    setState(() {
+      showEnglish = !showEnglish;
     });
   }
 }

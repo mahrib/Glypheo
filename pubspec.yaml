@@ -67,6 +67,7 @@ flutter:
     - assets/graphemes/diacritics/
     - assets/graphemes/punctuation/
     - assets/graphemes/vowels/
+    - assets/ui/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

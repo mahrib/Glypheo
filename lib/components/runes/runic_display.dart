@@ -6,27 +6,44 @@ import '../../data/graphemes.dart';
 import '../../data/runes_definition.dart';
 
 class RunicDisplay extends StatelessWidget {
-  const RunicDisplay({super.key, required this.runes});
+  const RunicDisplay({
+    super.key,
+    required this.runes,
+    required this.showEnglish,
+  });
 
   final List<Rune> runes;
+  final bool showEnglish;
 
   @override
   Widget build(BuildContext context) {
     var words = combineWords(runes);
 
-    return Container(
-      height: 150,
-      color: kDisplayBG,
+    return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-
-          child: Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            runAlignment: WrapAlignment.center,
-            alignment: WrapAlignment.center,
-            children: [for (var word in words) RunicWord(word: word)],
+        child: Container(
+          decoration: BoxDecoration(
+            color: kDisplayBG,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 20,
+                runAlignment: WrapAlignment.center,
+                alignment: WrapAlignment.center,
+                children: [
+                  for (var word in words)
+                    RunicWord(
+                      word: word,
+                      showEnglish: showEnglish,
+                    )
+                ],
+              ),
+            ),
           ),
         ),
       ),

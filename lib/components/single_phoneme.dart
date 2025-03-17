@@ -15,7 +15,7 @@ class SinglePhoneme extends StatelessWidget {
     }
     return Text(
       buttonString,
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Color(0xFF1689a7), fontWeight: FontWeight.bold),
     );
   }
 }

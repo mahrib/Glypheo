@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../config/ui_config.dart';
@@ -20,33 +22,26 @@ class KeyboardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = getButtonColor(type);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final padding = min(screenWidth / 150, kButtonPadding);
+    final double height = min(screenWidth / 6, 120);
+    final String bg = getButtonBG(type);
 
-    return Padding(
-      padding: const EdgeInsets.all(kButtonPadding),
-      child: SizedBox(
-        width: 70,
-        height: 100,
-        child: InkResponse(
-          onTap: () => onPressed(data),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.5),
-                  spreadRadius: 0,
-                  blurRadius: 5,
-                ),
-              ],            ),
-            child: Card(
-              margin: EdgeInsets.all(3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(17),
-              ),
-              color: color,
-              child: child,
+    return SizedBox(
+      height: height,
+      child: Padding(
+        padding: EdgeInsets.all(padding),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(bg),
+              centerSlice: Rect.fromLTRB(10, 10, 20, 20),
+              fit: BoxFit.fill,
             ),
+          ),
+          child: InkResponse(
+            onTap: () => onPressed(data),
+            child: child,
           ),
         ),
       ),
