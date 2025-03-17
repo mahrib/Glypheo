@@ -1,0 +1,10 @@
+^D:\DESKTOP\GLYPH-O-MATIC\BUILD\WINDOWS\X64\CMAKEFILES\3A1CB41F0F38EE0E3788258DEC833153\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/desktop/glyph-o-matic/windows -BD:/desktop/glyph-o-matic/build/windows/x64 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/desktop/glyph-o-matic/build/windows/x64/glyph_o_matic.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

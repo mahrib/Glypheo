@@ -1,0 +1,10 @@
+^D:\DESKTOP\GLYPH-O-MATIC\BUILD\WINDOWS\X64\CMAKEFILES\3A1CB41F0F38EE0E3788258DEC833153\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
